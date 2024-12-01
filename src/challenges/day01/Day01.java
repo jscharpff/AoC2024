@@ -1,5 +1,7 @@
 package challenges.day01;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import aocutil.io.FileReader;
@@ -28,19 +30,62 @@ public class Day01 {
 	}
 	
 	/**
+	 * Find distance between pairs in both lists, ordered from smallest to
+	 * largest.
 	 * 
-	 * @param input
-	 * @return 
+	 * @param input The list of strings that hold a pair of integers from both
+	 *   lists, separated by spaces
+	 * @return The sum of distances between sorted list elements
 	 */
 	private static long part1( final List<String> input ) {
-		return -1;
+		// parse input into two lists
+		final List<Integer> l1 = new ArrayList<>( input.size( ) );
+		final List<Integer> l2 = new ArrayList<>( input.size( ) );
+		for( final String i : input ) {
+			final String[] s = i.split( "   " );
+			l1.add( Integer.parseInt( s[0] ) );
+			l2.add( Integer.parseInt( s[1] ) );
+		}
+		
+		// sort lists smallest to largest
+		Collections.sort( l1 );
+		Collections.sort( l2 );
+		
+		// return sum of distances between each pair in both lists
+		long sum = 0;
+		for( int i = 0; i < l1.size( ); i++ )
+			sum += Math.abs( l2.get( i ) - l1.get( i ) );
+		return sum;
 	}
 
 	/**
+	 * Finds the similarity score between the two lists. This is the sum of
+	 * each element from the left list times the number of times it occurs in the
+	 * right list.
 	 * 
-	 * @param input
+	 * @param input The list of strings that hold a pair of integers from both
+	 *   lists, separated by spaces
 	 * @return 
 	 */
 	private static long part2( final List<String> input ) {
-		return -1;
-	}}
+		// parse input into two lists
+		final List<Integer> l1 = new ArrayList<>( input.size( ) );
+		final List<Integer> l2 = new ArrayList<>( input.size( ) );		
+		for( final String i : input ) {
+			final String[] s = i.split( "   " );
+			l1.add( Integer.parseInt( s[0] ) );
+			l2.add( Integer.parseInt( s[1] ) );
+		}
+
+		// for every number in the left list, find the number of times it occurs in
+		// the right list and multiply it by that value. Return the sum thereof
+		long sum = 0;
+		for( final int i : l1 ) {
+			int count = 0;
+			for( final int j : l2 )
+				if( i == j ) count++;
+			sum += i * count;
+		}
+		return sum;
+	}
+}
