@@ -28,19 +28,42 @@ public class Day02 {
 	}
 	
 	/**
+	 * Count the number of reports that are safe
 	 * 
-	 * @param input
-	 * @return 
+	 * @param input The list of report strings
+	 * @return The count of reports that are safe according to the safety rules
 	 */
 	private static long part1( final List<String> input ) {
-		return -1;
+		return input.stream( ).filter( r -> RNRReport.fromString( r ).isSafe( ) ).count( );
 	}
 
 	/**
+	 * Counts the number of reports that are safe, allowing one unsafe
+	 * measurement value to be removed from the report. 
 	 * 
-	 * @param input
-	 * @return 
+	 * @param input The list of report strings
+	 * @return  The count of reports that are safe, accounting for a single
+	 *   unsafe value
 	 */
 	private static long part2( final List<String> input ) {
-		return -1;
-	}}
+		int count = 0;
+		for( final String s : input ) {
+			// check if the report is already safe without removing a value
+			final RNRReport r = RNRReport.fromString( s );
+			if( r.isSafe( ) ) {
+				count++;
+				continue;
+			}
+
+			// if not, try removing one value and check if that makes the report safe
+			for( int i = 0; i < r.size( ); i++ ) {
+				final RNRReport r2 = r.remove( i );
+				if( r2.isSafe( ) ) {
+					count++;
+					break;
+				}
+			}
+		}
+		return count;
+	}
+}
