@@ -27,13 +27,12 @@ public class CrossWord {
 	 * Counts the occurrences of the specified word
 	 * 
 	 * @param word The word to search for
-	 * @return
+	 * @return The amounnt of times the word is present in the puzzle
 	 */
 	public long count( final String word  ) {
 		long count = 0;
-		for( final Coord2D c : puzzle ) { 
-			// start search only when first character of the word is encountered
-			if( puzzle.get( c ) != word.charAt( 0 ) ) continue;
+		// start search only when first character of the word is encountered
+		for( final Coord2D c : puzzle.find( word.charAt( 0 ) ) ) { 
 			
 			// try find the word in all directions
 			for( final int dx : new int[] { -1, 0, 1 } ) {
@@ -80,9 +79,8 @@ public class CrossWord {
 	 */
 	public long countXMAS( ) {
 		long count = 0;
-		for( final Coord2D c : puzzle ) { 
-			// now find the centre 'A's to start search from
-			if( puzzle.get( c ) != 'A' ) continue;
+		// now find the centre 'A's to start search from
+		for( final Coord2D c : puzzle.find( 'A' ) ) { 
 
 			// check diagonals for combinations of M's and S's
 			int MASCount = 0;
