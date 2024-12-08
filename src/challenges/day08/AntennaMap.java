@@ -6,7 +6,12 @@ import java.util.Map.Entry;
 import aocutil.geometry.Coord2D;
 import aocutil.grid.CoordGrid;
 
+/**
+ * Class that models a grid of antennas and simulates the projection of
+ * antinodes from these antennas
+ */
 public class AntennaMap {
+	/** The layout of antennas as a 2D grid */
 	protected CoordGrid<Character> map;
 	
 	/**
@@ -17,8 +22,11 @@ public class AntennaMap {
 	 *   row per string
 	 */
 	public AntennaMap( final List<String> input ) {
-		// create grid and fix the size to be the same as the input window
+		// create grid
 		map = CoordGrid.fromCharGrid( input, '.' );
+		
+		// fix the size to be the same as the input window, otherwise the CoordGrid
+		// will assume the antenna positions to define the boundaries
 		map.fixWindow( new Coord2D( 0, 0 ), new Coord2D( input.get( 0 ).length( ) - 1, input.size( ) - 1) );
 	}
 	
