@@ -32,18 +32,29 @@ public class Day15 {
 	}
 	
 	/**
+	 * Parses input into a warehouse layout and set of moves for the logistic
+	 * robot to process. Then simulates the processing of the moves and returns
+	 * the score of the resulting layout.
 	 * 
-	 * @param input
-	 * @return 
+	 * @param input The list of strings that describe the initial warehouse
+	 *   layout, including the starting position of the robot, followed by a 
+	 *   newline and then a list of move instruction strings.
+	 * @return The score of the warehouse layout after all moves have been
+	 *   processed by the robot
 	 */
 	private static long part1( final List<String> input ) {
 		return Warehouse.fromStringList( input ).move( );
 	}
 
 	/**
+	 * Same as part 1 but now the warehouse is twice as wide, with walls and 
+	 * boxes now being of size 2.
 	 * 
-	 * @param input
-	 * @return 
+	 * @param input The list of strings that describe the initial warehouse
+	 *   layout, including the starting position of the robot, followed by a 
+	 *   newline and then a list of move instruction strings.
+	 * @return The score of the warehouse layout after all moves have been
+	 *   processed by the robot
 	 */
 	private static long part2( final List<String> input ) {
 		return WarehouseSize2.fromStringList( input ).move( );
