@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 import aocutil.geometry.Coord2D;
@@ -98,7 +98,7 @@ public class ReindeerMaze {
 	protected List<RSPath> solve( ) {
 		// keep a queue of paths to explore next and a separate map for convenient
 		// value look up of previously visited states
-		final LinkedList<RSPath> Q = new LinkedList<>( );
+		final PriorityQueue<RSPath> Q = new PriorityQueue<>( );
 		final Map<String, ReindeerState> V = new HashMap<>( );
 		
 		// add initial path to the queue to start exploring from
@@ -138,15 +138,12 @@ public class ReindeerMaze {
 				// also update best value we've seen for this state
 				V.put( next.stateKey( ), next );
 			}
-			
-			// sort the list on value so that it acts as a priority queue
-			Q.sort( RSPath::compareTo );
 		}
 		
 		// return list of solutions. Note that we do not have to filter solutions
-		// here as the list acts as a priority queue and hence the first solution
-		// must be the lowest possible cost. Thereafter all longer solutions are
-		// discarded during the search
+		// here as we use a priority queue and hence the first solution must be the
+		// lowest possible cost. Thereafter all longer solutions are discarded
+		// during the search
 		return solutions;
 	}
 	
